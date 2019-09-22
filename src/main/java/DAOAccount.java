@@ -8,7 +8,8 @@ public class DAOAccount implements DAOinterface {
         return null;
     }
 
-    public String findRichest() {
+    public User findRichest() {
+        User user = new User();
         int acc = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -22,14 +23,19 @@ public class DAOAccount implements DAOinterface {
             }
             rs = st.executeQuery("SELECT * FROM user LEFT OUTER JOIN account ON user.userid = account.userid where account.account=" + acc);
             while (rs.next()) {
-                return rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getInt(4) + " " + rs.getInt(5) + " " + rs.getInt(6);
+
+                user.setId(rs.getInt(1));
+                user.setName(rs.getString(2));
+                user.setSurName(rs.getString(3));
+
+                //        return rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getInt(4) + " " + rs.getInt(5) + " " + rs.getInt(6);
             }
         } catch (ClassNotFoundException ex1) {
             System.out.println("Class not found EX " + ex1.getMessage());
         } catch (SQLException ex2) {
             System.out.println("SQL EX " + ex2.getMessage());
         }
-        return null;
+        return user;
     }
 
     public String totalBank() {

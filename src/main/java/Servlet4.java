@@ -13,8 +13,8 @@ public class Servlet4 extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter writer = response.getWriter();
         DAOAccount da = new DAOAccount();
-        writer.println(da.totalBank());
+        request.setAttribute("summ", da.totalBank());
+        request.getRequestDispatcher("/StartJSP.jsp").forward(request, response);
     }
 }

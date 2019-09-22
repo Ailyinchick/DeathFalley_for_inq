@@ -16,13 +16,14 @@ public class Servlet3 extends HttpServlet {
     static final String DB_PASSWORD = "123qwe";
     static final String Select_all_accounts = "select * from account";
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter writer = response.getWriter();
+        //     PrintWriter writer = response.getWriter();
+        //     writer.println(da.findRichest());
+
+
         DAOAccount da = new DAOAccount();
-        writer.println(da.findRichest());
+        request.setAttribute("name", da.findRichest().getName());
+        request.getRequestDispatcher("/StartJSP.jsp").forward(request, response);
     }
 }

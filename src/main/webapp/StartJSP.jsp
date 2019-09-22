@@ -17,9 +17,11 @@
 </form>
 <form action="Servlet3" method="get">
     Find the richest <input type="submit" value="Submit"/>
+    <p> Name: ${name}</p>
 </form>
 <form action="Servlet4" method="get">
     Get total bank <input type="submit" value="Submit"/>
+    <p> Name: ${summ}</p>
 </form>
 </body>
 </html>
