@@ -14,8 +14,15 @@
         <maven.compiler.target>8</maven.compiler.target>
         <javax.servlet.api.version>3.1.0</javax.servlet.api.version>
         <tomcat.plugin.version>2.2</tomcat.plugin.version>
+        <postgres.connector.version>9.1-901.jdbc3</postgres.connector.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>8.2-511.jdbc3</version>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
