@@ -1,31 +1,41 @@
 package SourcePack;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "account")
 public class Account {
-    int accountID;
-    int account;
-    int userID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private int account;
+    //private int user_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Account() {
+
+    }
+
+    public Account(int account) {
+        this.account = account;
+    }
+
+    public Account(int id, int account)  {
+        this.id = id;
+        this.account = account;
+    }
 
     @Override
     public String toString() {
-        return "Account{" +
-                "accountID=" + accountID +
-                ", account=" + account +
-                ", userID=" + userID +
-                '}';
+        return this.id + " " + this.account;
     }
 
-    public Account(int accountID, int account, int userID) {
-        this.accountID = accountID;
-        this.account = account;
-        this.userID = userID;
-    }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public int getId() {
+        return id;
     }
 
     public int getAccount() {
@@ -36,11 +46,11 @@ public class Account {
         this.account = account;
     }
 
-    public int getAccountID() {
-        return accountID;
+    public User getUser() {
+        return user;
     }
 
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

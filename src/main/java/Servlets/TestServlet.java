@@ -37,16 +37,16 @@ public class TestServlet extends HttpServlet {
 
         String title = "Death Valley";
         String docType = "<!DOCTYPE html>";
-        writer.println(docType + "<html><head><title>" + title + "</title></head><body>" +
-                "<form action='TestServlet.java' method='get'>" +
-                "<input type='text' name='userID'/>" +
-                "<input type = 'submit' name='Submit'/>" +
-                "</form>" +
-                "</body>" +
-                "</html>");
+            writer.println(docType + "<html><head><title>" + title + "</title></head><body>" +
+                    "<form action='TestServlet.java' method='get'>" +
+                    "<input type='text' name='userID'/>" +
+                    "<input type = 'submit' name='Submit'/>" +
+                    "</form>" +
+                    "</body>" +
+                    "</html>");
 
-        try {
-            Class.forName(JDBC_driver);
+            try {
+                Class.forName(JDBC_driver);
             Connection con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(Select_all_accounts);

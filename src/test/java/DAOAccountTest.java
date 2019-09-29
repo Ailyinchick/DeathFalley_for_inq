@@ -12,12 +12,12 @@ public class DAOAccountTest {
 
     @Test
     public void totalBank() {
-        Assert.assertEquals("6800", ac.totalBank());
+        Assert.assertEquals("6400", ac.totalBank());
     }
 
     @Test
     public void findRichest() {
-        System.out.println(ac.findRichest());
+        Assert.assertEquals("Dima", ac.findRichest().getName());
     }
 
     @Test

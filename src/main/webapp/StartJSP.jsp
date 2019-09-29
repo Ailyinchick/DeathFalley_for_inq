@@ -11,9 +11,14 @@
     <title>Death Valley</title>
 </head>
 <body>
-<form action="TestServlet">
+<form action="FindByID">
     <input type="text" name="userID"/>
     <input type="submit" name="Submit">
+    <p> Find by id: ${findbyid} </p>
+</form>
+<form action="FindAll">
+    <input type="submit" value="Display bank">
+    <p>Accounts: ${account}</p>
 </form>
 <form action="Servlet3" method="get">
     Find the richest <input type="submit" value="Submit"/>
