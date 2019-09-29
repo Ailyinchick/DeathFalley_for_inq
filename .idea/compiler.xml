@@ -9,5 +9,8 @@
         <module name="DeathFalley_for_inq" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="PZ1" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

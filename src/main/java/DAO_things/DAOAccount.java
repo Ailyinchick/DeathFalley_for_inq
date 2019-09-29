@@ -1,6 +1,11 @@
+package DAO_things;
+
+import SourcePack.Account;
+import SourcePack.User;
+import SourcePack.userWallet;
+
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DAOAccount implements DAOinterface {
     @Override
@@ -8,27 +13,63 @@ public class DAOAccount implements DAOinterface {
         return null;
     }
 
+    public void tableSummAcc() {
+        List<userWallet> outList = new ArrayList();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbfordv", "root", "123qwe");
+            Statement st = con.createStatement();
+
+          /*  st.executeUpdate("drop table accsumm");
+            st.executeUpdate("create table if not exists accsumm(userid int, totalcash int )");
+            st.executeUpdate("truncate table accsum");*/
+
+            ResultSet rs = st.executeQuery("select userid from account order by userid");
+            Set varSet = new LinkedHashSet();
+            while (rs.next()) {
+                varSet.add(new userWallet(rs.getInt(1)));
+            }
+
+
+            List<userWallet> varList = new ArrayList(varSet);
+            for (int i = 0; i < varList.size(); i++) {
+                rs = st.executeQuery("select account, userid from account where userid=" + varList.get(i).getUserid() + " order by userid");
+                while (rs.next()) {
+                    varList.get(i).cash += rs.getInt(1);
+                }
+            }
+            for (int i = 0; i < varList.size(); i++) {
+                st.executeUpdate("insert into accsumm values(" + varList.get(i).getUserid() + ", " + varList.get(i).getCash() + ") ");
+            }
+
+        } catch (ClassNotFoundException ex1) {
+            System.out.println("ClassNOtFoundEX " + ex1.getMessage());
+        } catch (SQLException ex2) {
+            System.out.println(ex2.getMessage());
+        }
+
+    }
+
     public User findRichest() {
         User user = new User();
+        int usid=0;
         int acc = 0;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/dbfordv", "root", "123qwe");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM user LEFT OUTER JOIN account ON user.userid = account.userid");
+            ResultSet rs = st.executeQuery("select * from accsumm");
             while (rs.next()) {
-                if (rs.getInt("account") > acc) {
-                    acc = rs.getInt("account");
+                if (rs.getInt(2) > acc) {
+                    acc = rs.getInt(2);
+                    usid=rs.getInt(1);
                 }
             }
-            rs = st.executeQuery("SELECT * FROM user LEFT OUTER JOIN account ON user.userid = account.userid where account.account=" + acc);
+            rs = st.executeQuery("SELECT * FROM user LEFT OUTER JOIN account ON user.userid = account.userid where user.userid=" + usid);
             while (rs.next()) {
-
                 user.setId(rs.getInt(1));
                 user.setName(rs.getString(2));
                 user.setSurName(rs.getString(3));
-
-                //        return rs.getInt(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getInt(4) + " " + rs.getInt(5) + " " + rs.getInt(6);
             }
         } catch (ClassNotFoundException ex1) {
             System.out.println("Class not found EX " + ex1.getMessage());
